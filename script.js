@@ -34,3 +34,10 @@ function render(){
   document.getElementById('resultLine').innerHTML = (expr ? escapeHtml(expr) : '0') + '<span class="cursor"></span>';
 }
 function escapeHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+document.addEventListener('keydown', (e) => {
+  const k = e.key;
+  if(/[0-9.+\-*/^()%]/.test(k)){ expr += k; render(); }
+  else if(k === 'Enter'){ evaluate(); }
+  else if(k === 'Backspace'){ expr = expr.slice(0,-1); render(); }
+  else if(k === 'Escape'){ expr=''; render(); }
+});
