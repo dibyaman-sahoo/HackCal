@@ -201,3 +201,49 @@ async function typeInto(el, html, speed){
   }
   el.innerHTML = html;
 }
+async function animateTrace(){
+  const traceEl = document.getElementById('trace');
+  traceEl.innerHTML = '';
+  if(trace.length === 0){
+    traceEl.innerHTML = '<div class="idle">constant expression \u2014 no ALU ops recorded</div>';
+    return;
+  }
+  for(let i=0;i<trace.length;i++){
+    const t = trace[i];
+    const step = document.createElement('div');
+    step.className = 'step';
+    traceEl.appendChild(step);
+    traceEl.scrollTop = traceEl.scrollHeight;
+
+    const tag = document.createElement('div');
+    tag.className = 'tag';
+    tag.textContent = 'STEP ' + (i+1) + '/' + trace.length + '  \u2014  ' + OP_LABEL[t.op];
+    step.appendChild(tag);
+
+    const bitsA = document.createElement('div');
+    bitsA.className = 'bits';
+    step.appendChild(bitsA);
+    await typeInto(bitsA, 'a = ' + colorBits(toBinary(t.a)) + '  (dec ' + trimNum(t.a) + ')', 12);
+    await sleep(120);
+
+    if(t.type === 'bin'){
+      const bitsB = document.createElement('div');
+      bitsB.className = 'bits';
+      step.appendChild(bitsB);
+      await typeInto(bitsB, 'b = ' + colorBits(toBinary(t.b)) + '  (dec ' + trimNum(t.b) + ')', 12);
+      await sleep(120);
+    }
+
+    const arrow = document.createElement('div');
+    arrow.className = 'arrow';
+    arrow.textContent = '\u2193 executing ' + OP_LABEL[t.op] + ' \u2193';
+    step.appendChild(arrow);
+    await sleep(150);
+
+    const bitsR = document.createElement('div');
+    bitsR.className = 'bits';
+    step.appendChild(bitsR);
+    await typeInto(bitsR, 'result = ' + colorBits(toBinary(t.result)) + '  (dec ' + trimNum(t.result) + ')', 12);
+    await sleep(280);
+  }
+}
