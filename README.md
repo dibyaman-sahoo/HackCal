@@ -84,3 +84,18 @@ python3 -m http.server 8000
 | Full trace after evaluation | Mobile layout |
 |---|---|
 | ![Result](assets/screenshots/hackcal-result.png) | ![Mobile](assets/screenshots/hackcal-mobile.png) |
+
+## Live demo
+
+Coming soon — deploy `index.html`/`style.css`/`script.js` via GitHub Pages, Netlify, or Vercel and link it here.
+
+## Possible future work
+
+- Degree/radian toggle
+- Calculation history with recall
+- Adjustable trace animation speed
+- Additional color themes
+
+## License
+
+MIT — see [LICENSE](LICENSE).
