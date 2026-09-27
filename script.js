@@ -120,3 +120,44 @@ function parseExpr(tokens){
   return tree;
 }
 let trace = [];
+function evalNode(node){
+  if(node.kind === 'num') return node.value;
+  if(node.kind === 'bin'){
+    const a = evalNode(node.a);
+    const b = evalNode(node.b);
+    let result;
+    switch(node.op){
+      case '+': result = a + b; break;
+      case '-': result = a - b; break;
+      case '*': result = a * b; break;
+      case '/':
+        if(b === 0) throw new Error('division by zero');
+        result = a / b; break;
+      case '^': result = Math.pow(a, b); break;
+    }
+    trace.push({ type:'bin', op:node.op, a, b, result });
+    return result;
+  }
+  if(node.kind === 'un'){
+    const a = evalNode(node.a);
+    let result;
+    switch(node.op){
+      case 'neg': result = -a; break;
+      case '%': result = a / 100; break;
+      case 'sin': result = Math.sin(a * Math.PI/180); break;
+      case 'cos': result = Math.cos(a * Math.PI/180); break;
+      case 'tan': result = Math.tan(a * Math.PI/180); break;
+      case 'sqrt':
+        if(a < 0) throw new Error('sqrt of negative');
+        result = Math.sqrt(a); break;
+      case 'log':
+        if(a <= 0) throw new Error('log of non-positive');
+        result = Math.log10(a); break;
+      case 'ln':
+        if(a <= 0) throw new Error('ln of non-positive');
+        result = Math.log(a); break;
+    }
+    trace.push({ type:'un', op:node.op, a, result });
+    return result;
+  }
+}
