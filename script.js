@@ -42,3 +42,10 @@ document.addEventListener('keydown', (e) => {
   else if(k === 'Escape'){ expr=''; render(); }
 });
 /* ================= tokenizer / parser / evaluator with trace ================= */
+function tokenize(str){
+  const tokens = [];
+  const re = /\d+\.?\d*|\.\d+|sin|cos|tan|sqrt|log|ln|pi|[+\-*/^()%]/g;
+  let m;
+  while((m = re.exec(str)) !== null) tokens.push(m[0]);
+  return tokens;
+}
