@@ -190,3 +190,4 @@ function colorBits(s){
 const OP_LABEL = { '+':'ADD','-':'SUB','*':'MUL','/':'DIV','^':'POW',
   'sin':'FPU SIN','cos':'FPU COS','tan':'FPU TAN','sqrt':'FPU SQRT',
   'log':'FPU LOG10','ln':'FPU LN','neg':'NEGATE','%':'PERCENT' };
+function sleep(ms){ return new Promise(r => setTimeout(r, ms)); }
