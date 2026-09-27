@@ -119,3 +119,4 @@ function parseExpr(tokens){
   if(pos !== tokens.length) throw new Error('unexpected token "' + tokens[pos] + '"');
   return tree;
 }
+let trace = [];
