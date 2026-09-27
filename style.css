@@ -53,3 +53,12 @@ body{
   font-size:28px; color:var(--red-bright); text-shadow:0 0 8px rgba(255,51,65,.5);
   white-space:pre; overflow-x:auto;
 }
+.cursor{display:inline-block; width:7px; height:16px; background:var(--red); margin-left:2px; vertical-align:-3px; animation:blink 1s steps(1) infinite;}
+@keyframes blink{50%{opacity:0;}}
+
+.pad{display:grid; grid-template-columns:repeat(4,1fr); grid-auto-rows:44px; gap:7px;}
+button{
+  background:#160909; border:1px solid var(--line); color:var(--text);
+  font-family:inherit; font-size:14px; border-radius:6px; cursor:pointer;
+  transition:background .12s, box-shadow .12s;
+}
