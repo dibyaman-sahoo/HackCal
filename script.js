@@ -180,3 +180,10 @@ function toBinary(num, fracBits){
   let out = (neg ? '-' : '') + intBin + (truncatedInt ? '\u2026' : '') + (fracBin ? '.' + fracBin : '');
   return out;
 }
+function colorBits(s){
+  return s.split('').map(ch => {
+    if(ch === '1') return '<span class="b1">1<\/span>';
+    if(ch === '0') return '<span class="b0">0<\/span>';
+    return ch;
+  }).join('');
+}
