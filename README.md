@@ -19,3 +19,13 @@ The app is built in three plain files with no framework and no build step.
 **Binary conversion.** Each recorded number is converted into binary by splitting it into an integer part (repeated division by 2) and a fractional part (repeated multiplication by 2, extracting the leading bit each time, up to 14 bits).
 
 **Animated playback.** Once evaluation finishes, the trace list is replayed step by step in the side panel: each operand's binary form is typed out character by character, then the operation is shown "executing," then the result's binary form types out the same way, before moving to the next step. Nothing is rendered all at once.
+
+## Example
+
+`(45 + 385) × 2 − 10 = 850`
+
+1. **ADD** — `45` (`101101`) + `385` (`110000001`) → `430` (`110101110`)
+2. **MUL** — `430` (`110101110`) × `2` (`10`) → `860` (`1101011100`)
+3. **SUB** — `860` (`1101011100`) − `10` (`1010`) → `850` (`1101010010`)
+
+The panel animates through exactly these three steps, in order, before the decimal answer settles in the display.
