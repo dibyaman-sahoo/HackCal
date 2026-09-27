@@ -29,3 +29,16 @@ The app is built in three plain files with no framework and no build step.
 3. **SUB** — `860` (`1101011100`) − `10` (`1010`) → `850` (`1101010010`)
 
 The panel animates through exactly these three steps, in order, before the decimal answer settles in the display.
+
+## Features
+
+- Single natural expression input — type on a keyboard or tap the on-screen keys
+- Scientific functions: `sin`, `cos`, `tan` (degrees), `log` (base 10), `ln`, `√`, `^`, `%`, `π`, `e`, parentheses
+- Recursive-descent parser with correct operator precedence
+- Animated, step-by-step binary/ALU-FPU trace panel (not an instant dump)
+- Full keyboard support (`Enter` to evaluate, `Backspace`, `Escape` to clear)
+- Error handling for invalid syntax, division by zero, and out-of-domain input (`sqrt` of a negative, `log`/`ln` of zero or a negative)
+- Responsive layout — calculator and trace panel sit side by side on desktop, stack on narrow/mobile screens
+- Red hacker/matrix visual theme with a short animated boot screen on load (skips itself if the browser/OS requests reduced motion)
+
+Not implemented: calculation history, unit conversion, graphing, a degree/radian toggle (trig is fixed to degrees).
