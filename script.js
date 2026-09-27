@@ -161,3 +161,22 @@ function evalNode(node){
     return result;
   }
 }
+/* ================= binary representation ================= */
+function toBinary(num, fracBits){
+  fracBits = fracBits || 14;
+  if(!isFinite(num)) return 'NaN';
+  const neg = num < 0;
+  num = Math.abs(num);
+  let intPart = Math.floor(num);
+  let fracPart = num - intPart;
+  let intBin = intPart === 0 ? '0' : intPart.toString(2);
+  let truncatedInt = false;
+  if(intBin.length > 40){ intBin = intBin.slice(0,40); truncatedInt = true; }
+  let fracBin = '';
+  for(let i=0; i<fracBits && fracPart > 0; i++){
+    fracPart *= 2;
+    if(fracPart >= 1){ fracBin += '1'; fracPart -= 1; } else fracBin += '0';
+  }
+  let out = (neg ? '-' : '') + intBin + (truncatedInt ? '\u2026' : '') + (fracBin ? '.' + fracBin : '');
+  return out;
+}
