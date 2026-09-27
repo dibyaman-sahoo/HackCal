@@ -41,3 +41,4 @@ document.addEventListener('keydown', (e) => {
   else if(k === 'Backspace'){ expr = expr.slice(0,-1); render(); }
   else if(k === 'Escape'){ expr=''; render(); }
 });
+/* ================= tokenizer / parser / evaluator with trace ================= */
