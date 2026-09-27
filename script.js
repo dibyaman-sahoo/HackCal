@@ -49,3 +49,73 @@ function tokenize(str){
   while((m = re.exec(str)) !== null) tokens.push(m[0]);
   return tokens;
 }
+function parseExpr(tokens){
+  let pos = 0;
+  const peek = () => tokens[pos];
+  const next = () => tokens[pos++];
+
+  function parseAdd(){
+    let node = parseMul();
+    while(peek() === '+' || peek() === '-'){
+      const op = next();
+      node = { kind:'bin', op, a: node, b: parseMul() };
+    }
+    return node;
+  }
+  function parseMul(){
+    let node = parsePow();
+    while(peek() === '*' || peek() === '/'){
+      const op = next();
+      node = { kind:'bin', op, a: node, b: parsePow() };
+    }
+    return node;
+  }
+  function parsePow(){
+    let node = parsePostfix();
+    if(peek() === '^'){
+      next();
+      const rhs = parsePow(); // right-assoc
+      node = { kind:'bin', op:'^', a: node, b: rhs };
+    }
+    return node;
+  }
+  function parsePostfix(){
+    let node = parseUnary();
+    while(peek() === '%'){
+      next();
+      node = { kind:'un', op:'%', a: node };
+    }
+    return node;
+  }
+  function parseUnary(){
+    if(peek() === '-'){ next(); return { kind:'un', op:'neg', a: parseUnary() }; }
+    return parsePrimary();
+  }
+  function parsePrimary(){
+    const t = peek();
+    if(t === undefined) throw new Error('unexpected end of expression');
+    if(/^\d/.test(t) || t.startsWith('.')){ next(); return { kind:'num', value: parseFloat(t) }; }
+    if(t === 'pi'){ next(); return { kind:'num', value: Math.PI }; }
+    if(['sin','cos','tan','sqrt','log','ln'].includes(t)){
+      next();
+      if(peek() !== '(') throw new Error(t + ' expects (');
+      next();
+      const arg = parseAdd();
+      if(peek() !== ')') throw new Error('missing )');
+      next();
+      return { kind:'un', op:t, a: arg };
+    }
+    if(t === '('){
+      next();
+      const inner = parseAdd();
+      if(peek() !== ')') throw new Error('missing )');
+      next();
+      return inner;
+    }
+    throw new Error('unexpected token "' + t + '"');
+  }
+
+  const tree = parseAdd();
+  if(pos !== tokens.length) throw new Error('unexpected token "' + tokens[pos] + '"');
+  return tree;
+}
