@@ -273,3 +273,38 @@ async function evaluate(){
   await animateTrace();
   expr = trimNum(result);
 }
+/* ================= boot / welcome sequence ================= */
+(function initBoot(){
+  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const boot = document.getElementById('boot');
+  const rain = document.getElementById('bootRain');
+  const fill = document.getElementById('bootFill');
+
+  if(!reduceMotion && rain){
+    const cols = 9;
+    for(let i=0;i<cols;i++){
+      const col = document.createElement('div');
+      col.className = 'col';
+      col.style.left = (i * (100/cols)) + '%';
+      let str = '';
+      for(let j=0;j<40;j++) str += (Math.random() > 0.5 ? '1' : '0') + '\n';
+      col.textContent = str;
+      const dur = 2.2 + Math.random() * 1.6;
+      col.style.animationDuration = dur + 's';
+      col.style.animationDelay = (-Math.random() * dur) + 's';
+      rain.appendChild(col);
+    }
+  }
+
+  function hideBoot(){
+    boot.classList.add('boot-hide');
+    setTimeout(() => { boot.style.display = 'none'; }, 480);
+  }
+
+  if(reduceMotion){
+    hideBoot();
+  } else {
+    requestAnimationFrame(() => { fill.style.width = '100%'; });
+    setTimeout(hideBoot, 1500);
+  }
+})();
