@@ -9,6 +9,7 @@ const keys = [
   ['1',''],['2',''],['3',''],['=','eq'],
   ['0','wide'],['.',''],
 ];
+
 const pad = document.getElementById('pad');
 keys.forEach(([label, cls]) => {
   const b = document.createElement('button');
@@ -17,7 +18,9 @@ keys.forEach(([label, cls]) => {
   b.addEventListener('click', () => handleKey(label));
   pad.appendChild(b);
 });
+
 let expr = '';
+
 function handleKey(label){
   if(label === 'AC'){ expr=''; render(); return; }
   if(label === '\u232b'){ expr = expr.slice(0,-1); render(); return; }
@@ -29,11 +32,13 @@ function handleKey(label){
   expr += map[label] !== undefined ? map[label] : label;
   render();
 }
+
 function render(){
   document.getElementById('exprLine').innerHTML = expr ? escapeHtml(expr) : '&nbsp;';
   document.getElementById('resultLine').innerHTML = (expr ? escapeHtml(expr) : '0') + '<span class="cursor"></span>';
 }
 function escapeHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+
 document.addEventListener('keydown', (e) => {
   const k = e.key;
   if(/[0-9.+\-*/^()%]/.test(k)){ expr += k; render(); }
@@ -41,7 +46,9 @@ document.addEventListener('keydown', (e) => {
   else if(k === 'Backspace'){ expr = expr.slice(0,-1); render(); }
   else if(k === 'Escape'){ expr=''; render(); }
 });
+
 /* ================= tokenizer / parser / evaluator with trace ================= */
+
 function tokenize(str){
   const tokens = [];
   const re = /\d+\.?\d*|\.\d+|sin|cos|tan|sqrt|log|ln|pi|[+\-*/^()%]/g;
@@ -49,6 +56,7 @@ function tokenize(str){
   while((m = re.exec(str)) !== null) tokens.push(m[0]);
   return tokens;
 }
+
 function parseExpr(tokens){
   let pos = 0;
   const peek = () => tokens[pos];
@@ -119,7 +127,9 @@ function parseExpr(tokens){
   if(pos !== tokens.length) throw new Error('unexpected token "' + tokens[pos] + '"');
   return tree;
 }
+
 let trace = [];
+
 function evalNode(node){
   if(node.kind === 'num') return node.value;
   if(node.kind === 'bin'){
@@ -161,6 +171,7 @@ function evalNode(node){
     return result;
   }
 }
+
 /* ================= binary representation ================= */
 function toBinary(num, fracBits){
   fracBits = fracBits || 14;
@@ -180,6 +191,7 @@ function toBinary(num, fracBits){
   let out = (neg ? '-' : '') + intBin + (truncatedInt ? '\u2026' : '') + (fracBin ? '.' + fracBin : '');
   return out;
 }
+
 function colorBits(s){
   return s.split('').map(ch => {
     if(ch === '1') return '<span class="b1">1<\/span>';
@@ -187,10 +199,13 @@ function colorBits(s){
     return ch;
   }).join('');
 }
+
 const OP_LABEL = { '+':'ADD','-':'SUB','*':'MUL','/':'DIV','^':'POW',
   'sin':'FPU SIN','cos':'FPU COS','tan':'FPU TAN','sqrt':'FPU SQRT',
   'log':'FPU LOG10','ln':'FPU LN','neg':'NEGATE','%':'PERCENT' };
+
 function sleep(ms){ return new Promise(r => setTimeout(r, ms)); }
+
 async function typeInto(el, html, speed){
   const plain = html.replace(/<[^>]*>/g,'');
   let shown = '';
@@ -201,6 +216,7 @@ async function typeInto(el, html, speed){
   }
   el.innerHTML = html;
 }
+
 async function animateTrace(){
   const traceEl = document.getElementById('trace');
   traceEl.innerHTML = '';
@@ -247,11 +263,13 @@ async function animateTrace(){
     await sleep(280);
   }
 }
+
 function trimNum(n){
   if(!isFinite(n)) return String(n);
   let s = n.toFixed(8).replace(/0+$/,'').replace(/\.$/,'');
   return s === '' || s === '-' ? '0' : s;
 }
+
 async function evaluate(){
   if(!expr) return;
   trace = [];
@@ -273,6 +291,7 @@ async function evaluate(){
   await animateTrace();
   expr = trimNum(result);
 }
+
 /* ================= boot / welcome sequence ================= */
 (function initBoot(){
   const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -308,5 +327,5 @@ async function evaluate(){
     setTimeout(hideBoot, 1500);
   }
 })();
-render();
 
+render();
