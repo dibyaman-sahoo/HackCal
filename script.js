@@ -17,3 +17,4 @@ keys.forEach(([label, cls]) => {
   b.addEventListener('click', () => handleKey(label));
   pad.appendChild(b);
 });
+let expr = '';
