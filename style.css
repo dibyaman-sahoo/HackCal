@@ -1,0 +1,20 @@
+:root{
+  --bg:#0a0404;
+  --panel:#120707;
+  --line:#3a1010;
+  --red:#ff3341;
+  --red-dim:#7a1620;
+  --red-bright:#ff6b74;
+  --text:#f3d9da;
+  --muted:#7a5457;
+  color-scheme: dark;
+}
+*{box-sizing:border-box;}
+html,body{height:100%;margin:0;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace;
+  padding:20px 14px calc(20px + env(safe-area-inset-bottom,0px));
+  padding-top:calc(20px + env(safe-area-inset-top,0px));
+}
