@@ -247,3 +247,8 @@ async function animateTrace(){
     await sleep(280);
   }
 }
+function trimNum(n){
+  if(!isFinite(n)) return String(n);
+  let s = n.toFixed(8).replace(/0+$/,'').replace(/\.$/,'');
+  return s === '' || s === '-' ? '0' : s;
+}
