@@ -46,3 +46,10 @@ body{
   display:flex; flex-direction:column; justify-content:flex-end; gap:4px;
   overflow-x:auto;
 }
+.expr{
+  font-size:15px; color:var(--muted); white-space:pre; min-height:18px;
+}
+.result{
+  font-size:28px; color:var(--red-bright); text-shadow:0 0 8px rgba(255,51,65,.5);
+  white-space:pre; overflow-x:auto;
+}
