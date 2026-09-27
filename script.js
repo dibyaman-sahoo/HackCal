@@ -18,3 +18,14 @@ keys.forEach(([label, cls]) => {
   pad.appendChild(b);
 });
 let expr = '';
+function handleKey(label){
+  if(label === 'AC'){ expr=''; render(); return; }
+  if(label === '\u232b'){ expr = expr.slice(0,-1); render(); return; }
+  if(label === '='){ evaluate(); return; }
+  const map = {
+    '\u00f7':'/', '\u00d7':'*', '\u2212':'-', '\u03c0':'pi', '\u221a':'sqrt(',
+    'sin':'sin(', 'cos':'cos(', 'tan':'tan(', 'log':'log(', 'ln':'ln(',
+  };
+  expr += map[label] !== undefined ? map[label] : label;
+  render();
+}
