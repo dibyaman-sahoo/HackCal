@@ -308,3 +308,5 @@ async function evaluate(){
     setTimeout(hideBoot, 1500);
   }
 })();
+render();
+
