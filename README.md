@@ -70,3 +70,17 @@ To serve it locally instead of opening the file directly:
 python3 -m http.server 8000
 # then visit http://localhost:8000/index.html
 ```
+
+## Screenshots
+
+| Main interface | Scientific input |
+|---|---|
+| ![Main](assets/screenshots/hackcal-main.png) | ![Scientific](assets/screenshots/hackcal-scientific.png) |
+
+| Mid-animation | Trace continuing |
+|---|---|
+| ![Calculation](assets/screenshots/hackcal-calculation.png) | ![Binary processing](assets/screenshots/hackcal-binary-processing.png) |
+
+| Full trace after evaluation | Mobile layout |
+|---|---|
+| ![Result](assets/screenshots/hackcal-result.png) | ![Mobile](assets/screenshots/hackcal-mobile.png) |
