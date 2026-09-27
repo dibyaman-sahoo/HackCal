@@ -115,3 +115,9 @@ button.ac{color:var(--red-bright); font-weight:600;}
   color:var(--red-dim); white-space:pre; text-align:center;
   animation-name:rainfall; animation-timing-function:linear; animation-iteration-count:infinite;
 }
+@keyframes rainfall{ from{ transform:translateY(0); } to{ transform:translateY(260%); } }
+.boot-inner{ position:relative; text-align:center; padding:0 20px; }
+.boot-title{
+  font-size:22px; font-weight:700; letter-spacing:.1em; color:var(--red);
+  text-shadow:0 0 14px rgba(255,51,65,.6);
+}
