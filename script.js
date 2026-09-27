@@ -29,3 +29,8 @@ function handleKey(label){
   expr += map[label] !== undefined ? map[label] : label;
   render();
 }
+function render(){
+  document.getElementById('exprLine').innerHTML = expr ? escapeHtml(expr) : '&nbsp;';
+  document.getElementById('resultLine').innerHTML = (expr ? escapeHtml(expr) : '0') + '<span class="cursor"></span>';
+}
+function escapeHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
