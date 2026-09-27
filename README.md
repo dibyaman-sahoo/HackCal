@@ -42,3 +42,31 @@ The panel animates through exactly these three steps, in order, before the decim
 - Red hacker/matrix visual theme with a short animated boot screen on load (skips itself if the browser/OS requests reduced motion)
 
 Not implemented: calculation history, unit conversion, graphing, a degree/radian toggle (trig is fixed to degrees).
+
+## Project structure
+
+```
+HackCal/
+├── index.html               entry point — page structure, boot screen, keypad markup
+├── style.css                all styling: theme, layout, keypad, trace panel, boot animation
+├── script.js                keypad wiring, tokenizer, parser, evaluator + trace recorder,
+│                             binary conversion, and the step-by-step animation logic
+├── README.md
+├── LICENSE
+├── .gitignore
+└── assets/
+    └── screenshots/          screenshots used in this README
+```
+
+There is no server-side code and no dependency to install — `index.html` loads `style.css` and `script.js` directly.
+
+## Running it
+
+Open `index.html` in any modern browser. No build step, no install.
+
+To serve it locally instead of opening the file directly:
+
+```bash
+python3 -m http.server 8000
+# then visit http://localhost:8000/index.html
+```
