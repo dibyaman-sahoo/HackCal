@@ -191,3 +191,13 @@ const OP_LABEL = { '+':'ADD','-':'SUB','*':'MUL','/':'DIV','^':'POW',
   'sin':'FPU SIN','cos':'FPU COS','tan':'FPU TAN','sqrt':'FPU SQRT',
   'log':'FPU LOG10','ln':'FPU LN','neg':'NEGATE','%':'PERCENT' };
 function sleep(ms){ return new Promise(r => setTimeout(r, ms)); }
+async function typeInto(el, html, speed){
+  const plain = html.replace(/<[^>]*>/g,'');
+  let shown = '';
+  for(let i=0;i<plain.length;i++){
+    shown += plain[i];
+    el.textContent = shown;
+    await sleep(speed);
+  }
+  el.innerHTML = html;
+}
