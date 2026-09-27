@@ -252,3 +252,24 @@ function trimNum(n){
   let s = n.toFixed(8).replace(/0+$/,'').replace(/\.$/,'');
   return s === '' || s === '-' ? '0' : s;
 }
+async function evaluate(){
+  if(!expr) return;
+  trace = [];
+  let result;
+  try{
+    const tokens = tokenize(expr);
+    if(tokens.length === 0) throw new Error('empty expression');
+    const tree = parseExpr(tokens);
+    result = evalNode(tree);
+    if(!isFinite(result)) throw new Error('result is not finite');
+  } catch(e){
+    document.getElementById('exprLine').innerHTML = escapeHtml(expr);
+    document.getElementById('resultLine').innerHTML = '<span style="color:var(--red-bright);font-size:16px;">err: ' + escapeHtml(e.message) + '<\/span>';
+    document.getElementById('trace').innerHTML = '<div class="idle">execution aborted</div>';
+    return;
+  }
+  document.getElementById('exprLine').innerHTML = escapeHtml(expr) + ' =';
+  document.getElementById('resultLine').innerHTML = trimNum(result) + '<span class="cursor"></span>';
+  await animateTrace();
+  expr = trimNum(result);
+}
