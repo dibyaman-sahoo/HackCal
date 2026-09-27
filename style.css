@@ -32,3 +32,6 @@ body{
   text-align:center; color:var(--muted); font-size:11px; letter-spacing:.15em;
   margin-bottom:18px;
 }
+.layout{
+  display:flex; gap:16px; max-width:920px; margin:0 auto; flex-wrap:wrap;
+}
