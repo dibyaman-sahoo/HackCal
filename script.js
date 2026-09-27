@@ -9,3 +9,11 @@ const keys = [
   ['1',''],['2',''],['3',''],['=','eq'],
   ['0','wide'],['.',''],
 ];
+const pad = document.getElementById('pad');
+keys.forEach(([label, cls]) => {
+  const b = document.createElement('button');
+  b.textContent = label;
+  if(cls) b.classList.add(cls);
+  b.addEventListener('click', () => handleKey(label));
+  pad.appendChild(b);
+});
