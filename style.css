@@ -62,3 +62,21 @@ button{
   font-family:inherit; font-size:14px; border-radius:6px; cursor:pointer;
   transition:background .12s, box-shadow .12s;
 }
+button:hover{background:#210c0c;}
+button:active{transform:translateY(1px);}
+button.op{color:var(--red-bright);}
+button.fn{color:var(--red-dim); font-size:12.5px;}
+button.eq{
+  background:var(--red); color:#1a0303; font-weight:700;
+  box-shadow:0 0 14px rgba(255,51,65,.45);
+  grid-row: span 2;
+}
+button.eq:hover{background:var(--red-bright);}
+button.wide{grid-column:span 2;}
+button.ac{color:var(--red-bright); font-weight:600;}
+
+.panel{
+  flex:1 1 320px; max-width:460px; margin:0 auto;
+  background:var(--panel); border:1px solid var(--line); border-radius:10px;
+  padding:14px; min-height:420px;
+}
