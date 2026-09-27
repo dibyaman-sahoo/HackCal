@@ -100,3 +100,18 @@ button.ac{color:var(--red-bright); font-weight:600;}
   .layout{flex-direction:column;}
   .calc,.panel{max-width:100%;}
 }
+
+/* ================= boot / welcome screen ================= */
+#boot{
+  position:fixed; inset:0; z-index:999;
+  background:var(--bg);
+  display:flex; align-items:center; justify-content:center;
+  transition:opacity .45s ease, visibility .45s ease;
+}
+#boot.boot-hide{ opacity:0; visibility:hidden; }
+.boot-rain{ position:absolute; inset:0; overflow:hidden; opacity:.32; pointer-events:none; }
+.boot-rain .col{
+  position:absolute; top:-120%; width:14px; font-size:12px; line-height:14px;
+  color:var(--red-dim); white-space:pre; text-align:center;
+  animation-name:rainfall; animation-timing-function:linear; animation-iteration-count:infinite;
+}
